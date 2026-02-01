@@ -22,27 +22,22 @@ class Todo(db.Model):
     def __repr__(self) -> str:
         return f"{self.sno}-{self.title}"
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/", methods=["GET", "POST"])
 def hello_world():
 
-    if request.method=='POST':
-        title=request.form['title']
-        desc=request.form['desc']
-        # print(request.form['title'])
-        todo=Todo(title=title,desc=desc)
+    if request.method == "POST":
+        title = request.form["title"]
+        desc = request.form["desc"]
 
+        todo = Todo(title=title, desc=desc)
         db.session.add(todo)
         db.session.commit()
-        return redirect("/")  # Prevent form resubmission
 
-    allTodo=Todo.query.all()
-    print("allTodo")
-    return render_template('index.html',allTodo=allTodo)
+        return redirect("/")
 
-@app.route("/products")
-def prods():
-    l = 10
-    return f"<p>Welcome to our products</p> {l,9}"
+    allTodo = Todo.query.all()
+    return render_template("index.html", allTodo=allTodo)
+
 
 @app.route("/update/<int:sno>", methods=['GET', 'POST'])
 def update(sno):
