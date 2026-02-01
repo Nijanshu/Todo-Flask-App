@@ -71,7 +71,6 @@ def delete(sno):
 
 # ✅ CREATE DATABASE TABLES
 with app.app_context():
-    db.drop_all()
     db.create_all()
     # exit()
 
@@ -79,4 +78,4 @@ import os
 print("cwd",os.getcwd())
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    app.run()
